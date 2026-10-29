@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Panel KYC · Operador</title>
+<style>
+:root{--ink:#321441;--paper:#fff8e8;--pink:#d80969;--yellow:#ffcb35;--cyan:#64e1e8;--green:#1d8a5b;--red:#b3261e;--muted:#6b5a75;--line:#3214412e;font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--paper)}
+*{box-sizing:border-box}body{margin:0;background-color:var(--paper);background-image:radial-gradient(#32144117 1px,transparent 1px);background-size:18px 18px}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
+header{position:relative;overflow:hidden;border:2px solid var(--ink);border-radius:28px 28px 70px 12px;background:var(--ink);box-shadow:6px 6px 0 var(--pink);color:var(--paper);padding:24px 26px 28px;margin-bottom:22px}
+header::before{content:"";position:absolute;width:180px;height:180px;right:-60px;top:-95px;background:var(--yellow);border-radius:40% 60% 50% 40%;transform:rotate(25deg)}
+header h1{position:relative;margin:4px 0 6px;font-size:clamp(26px,5vw,38px);letter-spacing:-1px;line-height:1.05}
+header p{position:relative;margin:0;opacity:.85}.tag{position:relative;color:var(--yellow);font-size:12px;letter-spacing:.12em;font-weight:700}
+.card{background:#fff;border:2px solid var(--ink);border-radius:18px;box-shadow:4px 4px 0 #3214411f;padding:18px;margin:14px 0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{min-height:44px;border:2px solid var(--ink);border-radius:14px;background:var(--yellow);font-weight:700;padding:8px 16px;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}button:disabled{opacity:.5;cursor:default}
+button.secondary{background:#fff}button.ok{background:#9de8b0}button.bad{background:#ffb4c8}button.small{min-height:36px;padding:4px 12px;font-size:14px;box-shadow:2px 2px 0 var(--ink)}
+input,select,textarea{width:100%;min-height:44px;border:2px solid var(--ink);border-radius:12px;background:#fffdf7;padding:8px 12px;font-size:16px}
+textarea{min-height:90px;resize:vertical}label{display:block;font-size:14px;font-weight:600;margin:10px 0 6px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row>*{flex:0 0 auto}.grow{flex:1 1 220px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+.tabs button{background:#fff;box-shadow:2px 2px 0 var(--ink);min-height:38px;font-size:14px}.tabs button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.count{display:inline-block;min-width:22px;margin-left:6px;padding:0 6px;border-radius:10px;background:var(--yellow);color:var(--ink);font-size:12px}
+.item{display:grid;grid-template-columns:1fr auto;gap:6px 14px;cursor:pointer;margin:10px 0;padding:14px 16px}
+.item:hover,.item:focus-visible{background:#fffbea;outline:none}.item h3{margin:0;font-size:17px;overflow-wrap:anywhere}
+.meta{color:var(--muted);font-size:14px}.amount{font-weight:800;text-align:right;white-space:nowrap}
+.badges{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap}
+.badge{font-size:12px;font-weight:700;border:1.5px solid var(--ink);border-radius:20px;padding:2px 9px;background:#fff}
+.badge.warn{background:#ffe08a}.badge.alert{background:#ffb4c8}.badge.good{background:#c9f2d5}.badge.info{background:#cdf6f8}
+.status:not(:empty){padding:10px 12px;border-radius:12px;background:#fff;border:1.5px dashed var(--ink);margin:10px 0}
+dialog{width:min(820px,100%);max-height:92vh;border:2px solid var(--ink);border-radius:20px;padding:0;background:var(--paper);color:var(--ink);box-shadow:8px 8px 0 var(--pink)}
+dialog::backdrop{background:#32144199}
+.dlg-head{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 18px;background:var(--ink);color:var(--paper);z-index:1}
+.dlg-head button{color:var(--ink)}.dlg-head h2{margin:0;font-size:19px;overflow-wrap:anywhere}.dlg-body{padding:6px 18px 20px}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:12px 0}
+.fields div{border-bottom:1px solid var(--line);padding:6px 0}.fields dt{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.fields dd{margin:2px 0 0;overflow-wrap:anywhere}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px;font-size:13px;max-height:340px;overflow:auto}
+.empty{text-align:center;color:var(--muted);padding:30px 10px}[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<header><div class="tag">✦ SOLO PARA EL OPERADOR</div><h1>Panel de declaraciones KYC</h1><p>Revisá, aprobá o rechazá las declaraciones que envían tus clientes desde el formulario.</p></header>
+
+<section id="login" class="card" hidden>
+ <h2>🔐 Ingresá con tu correo</h2>
+ <p>Te mandamos un enlace de acceso. No hace falta contraseña. Solo los correos autorizados ven las declaraciones.</p>
+ <form id="loginForm" class="row"><input id="email" type="email" class="grow" required autocomplete="email" placeholder="tu@correo.com" aria-label="Correo"><button>Enviarme el enlace</button></form>
+ <p id="loginStatus" class="status" role="status" aria-live="polite"></p>
+</section>
+
+<section id="panel" hidden>
+ <div class="row"><p class="meta grow" id="who"></p><button type="button" class="secondary small" id="refresh">↻ Actualizar</button><button type="button" class="secondary small" id="logout">Salir</button></div>
+ <div class="tabs" role="group" aria-label="Filtrar por estado" id="tabs"></div>
+ <div class="row"><input id="search" class="grow" type="search" placeholder="Buscar por nombre, DNI o referencia" aria-label="Buscar"></div>
+ <p id="listStatus" class="status" role="status" aria-live="polite"></p>
+ <div id="list"></div>
+</section>
+</main>
+
+<dialog id="detail" aria-labelledby="dName">
+ <div class="dlg-head"><h2 id="dName"></h2><button type="button" class="secondary small" id="dClose" aria-label="Cerrar">✕</button></div>
+ <div class="dlg-body">
+  <div class="badges" id="dBadges"></div>
+  <dl class="fields" id="dFields"></dl>
+  <label for="dNotes">Notas del operador</label><textarea id="dNotes" maxlength="2000" placeholder="Ej.: pedí comprobante de origen de fondos"></textarea>
+  <div class="row" style="margin-top:12px"><button type="button" class="ok" data-estado="aprobada">✅ Aprobar</button><button type="button" data-estado="revisada">👀 Marcar revisada</button><button type="button" class="bad" data-estado="rechazada">⛔ Rechazar</button><button type="button" class="secondary" data-estado="pendiente">↩ Pendiente</button><button type="button" class="secondary" id="dSaveNotes">💾 Guardar notas</button></div>
+  <p id="dStatus" class="status" role="status" aria-live="polite"></p>
+  <details><summary>Declaración completa enviada por el cliente</summary><pre id="dText"></pre><button type="button" class="secondary small" id="dCopy">📋 Copiar texto</button></details>
+ </div>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+<script>
+'use strict';
+// Misma base que el formulario. La clave anon es pública: los datos los protege RLS (supabase/kyc_panel_operador.sql).
+const KYC_DB={url:'https://jsmqxlxilllqyyqawizw.supabase.co',key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpzbXF4bHhpbGxscXl5cWF3aXp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIzMjI2OTUsImV4cCI6MjA3Nzg5ODY5NX0.gOOHQjxId89Ik6PYY6IcQr163u27bczdUhT19oNRnAY'};
+const $=id=>document.getElementById(id);
+const db=supabase.createClient(KYC_DB.url,KYC_DB.key,{auth:{persistSession:true,detectSessionInUrl:true}});
+const ESTADOS=[['pendiente','🕒 Pendientes'],['revision','⚠️ Requieren revisión'],['aprobada','✅ Aprobadas'],['revisada','👀 Revisadas'],['rechazada','⛔ Rechazadas'],['todas','Todas']];
+const COLS='id,referencia,recibida_en,fecha_dispositivo,nombre,dni,domicilio,domicilio_leido,domicilio_corregido,lectura_codigo,ocupacion,monto,moneda,medio,origen,motivo,titularidad,beneficiario,pep,requiere_revision,estado,notas_operador,revisada_en,revisada_por,declaracion';
+let rows=[],filter='pendiente',current=null,timer=0;
+
+const fmtDate=v=>v?new Date(v).toLocaleString('es-AR',{timeZone:'America/Argentina/Buenos_Aires',dateStyle:'short',timeStyle:'short'}):'—';
+const fmtAmount=r=>r.monto==null?'—':Number(r.monto).toLocaleString('es-AR',{maximumFractionDigits:8})+' '+(r.moneda||'');
+const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;};
+function badges(r){
+ const out=[];const add=(t,c)=>out.push(el('span','badge '+c,t));
+ add({pendiente:'🕒 Pendiente',revisada:'👀 Revisada',aprobada:'✅ Aprobada',rechazada:'⛔ Rechazada'}[r.estado]||r.estado,r.estado==='aprobada'?'good':r.estado==='rechazada'?'alert':'');
+ if(r.requiere_revision)add('⚠️ Requiere revisión','warn');
+ if(r.pep&&r.pep!=='No')add('PEP: '+r.pep,'alert');
+ if((r.titularidad||'').includes('tercero'))add('Cuenta de terceros','alert');
+ if(r.domicilio_corregido)add('Domicilio corregido a mano','warn');
+ if(r.lectura_codigo)add('DNI por código de barras','info');
+ return out;}
+
+function matches(r){
+ if(filter==='revision'&&!(r.requiere_revision&&r.estado==='pendiente'))return false;
+ if(!['revision','todas'].includes(filter)&&r.estado!==filter)return false;
+ const q=$('search').value.trim().toLowerCase();
+ return !q||[r.nombre,r.dni,r.referencia].some(v=>(v||'').toLowerCase().includes(q));}
+
+function renderTabs(){
+ const box=$('tabs');box.replaceChildren();
+ for(const [key,label] of ESTADOS){
+  const n=key==='todas'?rows.length:key==='revision'?rows.filter(r=>r.requiere_revision&&r.estado==='pendiente').length:rows.filter(r=>r.estado===key).length;
+  const b=el('button',null,label);b.type='button';b.setAttribute('aria-pressed',String(filter===key));
+  if(n)b.append(el('span','count',String(n)));
+  b.addEventListener('click',()=>{filter=key;renderTabs();renderList();});box.append(b);}}
+
+function renderList(){
+ const list=$('list');list.replaceChildren();const shown=rows.filter(matches);
+ if(!shown.length){list.append(el('p','empty',rows.length?'No hay declaraciones con este filtro.':'Todavía no llegaron declaraciones.'));return;}
+ for(const r of shown){
+  const card=el('article','card item');card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label','Ver declaración de '+r.nombre);
+  const left=el('div');left.append(el('h3',null,r.nombre),el('div','meta','DNI '+r.dni+' · '+fmtDate(r.recibida_en)));
+  const right=el('div');right.append(el('div','amount',fmtAmount(r)),el('div','meta',r.medio||''));
+  const b=el('div','badges');b.append(...badges(r));
+  card.append(left,right,b);
+  card.addEventListener('click',()=>openDetail(r));card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openDetail(r);}});
+  list.append(card);}}
+
+async function load(){
+ $('listStatus').textContent=rows.length?'':'Cargando declaraciones…';
+ const {data,error}=await db.from('kyc_declaraciones').select(COLS).order('recibida_en',{ascending:false}).limit(500);
+ if(error){$('listStatus').textContent='⚠️ No se pudieron cargar las declaraciones: '+error.message;return;}
+ rows=data;$('listStatus').textContent=rows.length>=500?'Se muestran las 500 más recientes.':'';
+ if(current){const fresh=rows.find(r=>r.id===current.id);if(fresh)current=fresh;}
+ renderTabs();renderList();}
+
+function openDetail(r){
+ current=r;$('dName').textContent=r.nombre;$('dBadges').replaceChildren(...badges(r));
+ const f=$('dFields');f.replaceChildren();
+ const fields=[['DNI',r.dni],['Recibida',fmtDate(r.recibida_en)],['Domicilio',r.domicilio],...(r.domicilio_corregido?[['Domicilio leído del DNI',r.domicilio_leido]]:[]),['Monto',fmtAmount(r)],['Medio de pago',r.medio],['Ocupación',r.ocupacion],['Origen de fondos',r.origen],['Destino / motivo',r.motivo],['Titularidad',r.titularidad],['Beneficiario final',r.beneficiario],['PEP',r.pep],['Referencia',r.referencia],['Último cambio de estado',r.revisada_en?fmtDate(r.revisada_en)+' · '+(r.revisada_por||''):'—']];
+ for(const [k,v] of fields){const d=el('div');d.append(el('dt',null,k),el('dd',null,v||'—'));f.append(d);}
+ $('dNotes').value=r.notas_operador||'';$('dText').textContent=r.declaracion||'';$('dStatus').textContent='';
+ for(const b of document.querySelectorAll('[data-estado]'))b.disabled=b.dataset.estado===r.estado;
+ $('detail').showModal();}
+
+async function update(changes,okMsg){
+ if(!current)return;const r=current;$('dStatus').textContent='Guardando…';
+ for(const b of $('detail').querySelectorAll('button'))b.disabled=true;
+ const {data,error}=await db.from('kyc_declaraciones').update(changes).eq('id',r.id).select(COLS).single();
+ for(const b of $('detail').querySelectorAll('button'))b.disabled=false;
+ if(error){$('dStatus').textContent='⚠️ No se pudo guardar: '+error.message;for(const b of document.querySelectorAll('[data-estado]'))b.disabled=b.dataset.estado===r.estado;return;}
+ rows=rows.map(x=>x.id===data.id?data:x);renderTabs();renderList();openDetail(data);$('dStatus').textContent=okMsg;}
+
+for(const b of document.querySelectorAll('[data-estado]'))b.addEventListener('click',()=>update({estado:b.dataset.estado,notas_operador:$('dNotes').value.trim()||null},'✅ Estado actualizado: '+b.textContent.trim()));
+$('dSaveNotes').addEventListener('click',()=>update({notas_operador:$('dNotes').value.trim()||null},'💾 Notas guardadas.'));
+$('dClose').addEventListener('click',()=>$('detail').close());
+$('detail').addEventListener('close',()=>{current=null;});
+$('dCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('dText').textContent);$('dStatus').textContent='📋 Texto copiado.';}catch{$('dStatus').textContent='No se pudo copiar. Seleccioná el texto a mano.';}});
+$('search').addEventListener('input',renderList);
+$('refresh').addEventListener('click',load);
+$('logout').addEventListener('click',async()=>{await db.auth.signOut();location.reload();});
+
+$('loginForm').addEventListener('submit',async e=>{
+ e.preventDefault();const email=$('email').value.trim().toLowerCase();const btn=e.submitter;btn.disabled=true;$('loginStatus').textContent='Enviando…';
+ const {error}=await db.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname}});
+ btn.disabled=false;
+ $('loginStatus').textContent=error?'⚠️ No se pudo enviar el enlace: '+error.message:'📬 Listo. Abrí el correo que te llegó a '+email+' y tocá el enlace desde este mismo dispositivo.';});
+
+async function showPanel(session){
+ const {data:ok,error}=await db.rpc('es_operador_kyc');
+ if(error||!ok){$('login').hidden=false;$('panel').hidden=true;$('loginStatus').textContent=error?'⚠️ '+error.message:'⛔ El correo '+session.user.email+' no está autorizado para ver declaraciones.';await db.auth.signOut();return;}
+ $('login').hidden=true;$('panel').hidden=false;$('who').textContent='Sesión: '+session.user.email;
+ await load();clearInterval(timer);timer=setInterval(()=>{if(!document.hidden&&!current)load();},60000);}
+
+let started=false;
+db.auth.onAuthStateChange((event,session)=>{
+ if(session&&!started){started=true;setTimeout(()=>showPanel(session));}
+ if(!session&&event!=='INITIAL_SESSION'){started=false;}
+ if(!session&&event==='INITIAL_SESSION'){$('login').hidden=false;}});
+</script>
+</body>
+</html>
